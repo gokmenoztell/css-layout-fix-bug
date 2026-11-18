@@ -1,160 +1,13 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bozuk Layout - Flex & Grid Pratik</title>
-
-<!--
-  OLMASI GEREKEN HAL (hedef):
-  1. NAVBAR      : tek satır. Logo solda, linkler ortada yan yana, buton sağda. Hepsi dikeyde ortalı.
-  2. HERO        : iki kolon. Sol metin, sağ kutu. Dikeyde ortalı, eşit genişlik, aralarında boşluk.
-  3. FEATURES    : 3 eşit kolonlu grid, kartlar arası boşluk var. 768px altında 1 kolon.
-  4. MAIN+SIDEBAR: içerik 2fr, sidebar 1fr. 768px altında alt alta.
-  5. GALERİ      : 4 eşit kolon. 768px altında 2, 480px altında 1 kolon. Kutular kare.
-  6. PRICING     : 3 kart yan yana, eşit yükseklik, butonlar kartın en altında hizalı.
-  7. FORM        : 2 kolonlu inputlar, textarea ve buton tam genişlik.
-  8. FOOTER      : 4 kolon, 768px altında 2 kolon. Alt satırda telif yazısı ortada.
-  Yatay scroll hiçbir ekranda çıkmamalı.
--->
-
-<style>
-  * { margin: 0; padding: 0; }
-  body { font-family: Arial, sans-serif; background: #f4f4f4; color: #222; }
-  section { padding: 40px 20px; }
-  h2 { margin-bottom: 20px; }
-
-  /* ---------- NAVBAR ---------- */
-  .navbar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: flex-end;
-    background: #222;
-    color: #fff;
-    padding: 15px 20px;
-    height: 60px;
-  }
-  .logo { font-weight: bold; font-size: 22px; margin-left: auto; }
-  .nav-links { display: block; list-style: none; }
-  .nav-links li { float: left; margin: 0 10px; }
-  .nav-links a { color: #fff; text-decoration: none; }
-  .nav-btn { background: #ff5722; color: #fff; border: 0; padding: 10px 18px; align-self: flex-start; }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: flex-start;
-    justify-content: space-between;
-    background: #dfe9f3;
-    min-height: 300px;
-  }
-  .hero-text { flex: 3; width: 600px; flex-shrink: 0; }
-  .hero-box { flex: 0; background: #7aa7d9; height: 200px; width: 120%; }
-
-  /* ---------- FEATURES ---------- */
-  .features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr 2fr);
-    grid-gap: 0;
-    align-items: stretch;
-  }
-  .feature-card { background: #fff; padding: 20px; border: 1px solid #ccc; }
-  .feature-card:nth-child(2) { grid-column: 1 / 4; }
-  .feature-card:nth-child(4) { grid-row: 3; }
-
-  /* ---------- MAIN + SIDEBAR ---------- */
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-areas:
-      "sidebar main"
-      "main sidebar";
-  }
-  .layout main { grid-area: sidebar; background: #fff; padding: 20px; }
-  .layout aside { grid-area: main; background: #ffe0b2; padding: 20px; }
-
-  /* ---------- GALERİ ---------- */
-  .gallery {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 10px;
-    overflow: visible;
-  }
-  .gallery div {
-    flex: 0 0 300px;
-    height: 150px;
-    background: #8bc34a;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    color: #fff;
-    padding: 8px;
-  }
-  .gallery div:nth-child(3) { order: -1; align-self: center; }
-  .gallery div:nth-child(5) { flex: 1 1 0; }
-
-  /* ---------- PRICING ---------- */
-  .pricing {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  .price-card {
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    width: 30%;
-    display: block;
-  }
-  .price-card ul { margin: 15px 0; padding-left: 20px; }
-  .price-card button { background: #222; color: #fff; border: 0; padding: 10px 20px; }
-  .price-card:nth-child(2) { margin-top: -30px; align-self: flex-end; }
-
-  /* ---------- FORM ---------- */
-  form {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 10px 0;
-    max-width: 600px;
-  }
-  form input, form textarea, form button { padding: 10px; width: 100%; grid-column: 2; }
-  form textarea { grid-row: 1; height: 100px; }
-  form button { background: #ff5722; color: #fff; border: 0; justify-self: end; width: auto; }
-
-  /* ---------- FOOTER ---------- */
-  footer {
-    background: #222;
-    color: #fff;
-    padding: 30px 20px;
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 100px);
-    justify-content: space-between;
-    row-gap: 0;
-  }
-  .footer-grid div:last-child { grid-column: 5; }
-  .copyright { display: flex; justify-content: flex-start; margin-top: 20px; }
-
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 768px) {
-    .features { grid-template-columns: 1fr 1fr 1fr; }
-    .layout { grid-template-columns: 1fr; grid-template-areas: "main" "sidebar" "main"; }
-    .gallery { flex-direction: row-reverse; }
-    .pricing { flex-direction: row; }
-    .hero { flex-direction: row; }
-  }
-  @media (max-width: 480px) {
-    .gallery div { flex: 0 0 50%; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .navbar { flex-direction: row; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bozuk Layout - Flex & Grid Pratik</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
   <!-- NAVBAR -->
@@ -173,7 +26,8 @@
   <section class="hero">
     <div class="hero-text">
       <h1>Flex ve Grid Pratik Sayfası</h1>
-      <p>Bu sayfadaki layout bilerek bozuk. Hepsini düzeltmen lazım. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+      <p>Bu sayfadaki layout bilerek bozuk. Hepsini düzeltmen lazım. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit, sed do eiusmod tempor incididunt ut labore.</p>
     </div>
     <div class="hero-box"></div>
   </section>
@@ -182,12 +36,30 @@
   <section>
     <h2>Özellikler</h2>
     <div class="features">
-      <div class="feature-card"><h3>Hızlı</h3><p>Çok hızlı çalışır.</p></div>
-      <div class="feature-card"><h3>Güvenli</h3><p>Verilerin güvende. Bu kartın metni biraz daha uzun olsun diye ekstra cümle yazıldı.</p></div>
-      <div class="feature-card"><h3>Esnek</h3><p>İstediğin gibi şekillenir.</p></div>
-      <div class="feature-card"><h3>Ucuz</h3><p>Cebini yakmaz.</p></div>
-      <div class="feature-card"><h3>Kolay</h3><p>Öğrenmesi kolay.</p></div>
-      <div class="feature-card"><h3>Modern</h3><p>Güncel teknolojiler.</p></div>
+      <div class="feature-card">
+        <h3>Hızlı</h3>
+        <p>Çok hızlı çalışır.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Güvenli</h3>
+        <p>Verilerin güvende. Bu kartın metni biraz daha uzun olsun diye ekstra cümle yazıldı.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Esnek</h3>
+        <p>İstediğin gibi şekillenir.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Ucuz</h3>
+        <p>Cebini yakmaz.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Kolay</h3>
+        <p>Öğrenmesi kolay.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Modern</h3>
+        <p>Güncel teknolojiler.</p>
+      </div>
     </div>
   </section>
 
@@ -195,7 +67,8 @@
   <section class="layout">
     <main>
       <h2>Ana İçerik</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
     </main>
     <aside>
       <h3>Sidebar</h3>
@@ -207,8 +80,14 @@
   <section>
     <h2>Galeri</h2>
     <div class="gallery">
-      <div>1</div><div>2</div><div>3</div><div>4</div>
-      <div>5</div><div>6</div><div>7</div><div>8</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+      <div>6</div>
+      <div>7</div>
+      <div>8</div>
     </div>
   </section>
 
@@ -218,17 +97,28 @@
     <div class="pricing">
       <div class="price-card">
         <h3>Basic</h3>
-        <ul><li>1 proje</li><li>Temel destek</li></ul>
+        <ul>
+          <li>1 proje</li>
+          <li>Temel destek</li>
+        </ul>
         <button>Seç</button>
       </div>
       <div class="price-card">
         <h3>Pro</h3>
-        <ul><li>10 proje</li><li>Öncelikli destek</li><li>Analitik</li><li>API erişimi</li></ul>
+        <ul>
+          <li>10 proje</li>
+          <li>Öncelikli destek</li>
+          <li>Analitik</li>
+          <li>API erişimi</li>
+        </ul>
         <button>Seç</button>
       </div>
       <div class="price-card">
         <h3>Enterprise</h3>
-        <ul><li>Sınırsız proje</li><li>7/24 destek</li></ul>
+        <ul>
+          <li>Sınırsız proje</li>
+          <li>7/24 destek</li>
+        </ul>
         <button>Seç</button>
       </div>
     </div>
@@ -250,13 +140,29 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-grid">
-      <div><h4>Şirket</h4><p>Hakkımızda</p><p>Kariyer</p></div>
-      <div><h4>Ürün</h4><p>Özellikler</p><p>Fiyat</p></div>
-      <div><h4>Destek</h4><p>SSS</p><p>İletişim</p></div>
-      <div><h4>Sosyal</h4><p>Twitter</p><p>GitHub</p></div>
+      <div>
+        <h4>Şirket</h4>
+        <p>Hakkımızda</p>
+        <p>Kariyer</p>
+      </div>
+      <div>
+        <h4>Ürün</h4>
+        <p>Özellikler</p>
+        <p>Fiyat</p>
+      </div>
+      <div>
+        <h4>Destek</h4>
+        <p>SSS</p>
+        <p>İletişim</p>
+      </div>
+      <div>
+        <h4>Sosyal</h4>
+        <p>Twitter</p>
+        <p>GitHub</p>
+      </div>
     </div>
     <div class="copyright">© 2026 Tüm hakları saklıdır.</div>
   </footer>
-
 </body>
+
 </html>

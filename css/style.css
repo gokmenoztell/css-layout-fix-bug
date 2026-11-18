@@ -1,0 +1,255 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #222;
+}
+section {
+  padding: 40px 20px;
+}
+h2 {
+  margin-bottom: 20px;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  color: #fff;
+  padding: 15px 20px;
+  height: 60px;
+}
+.logo {
+  font-weight: bold;
+  font-size: 22px;
+}
+.nav-links {
+  display: block;
+  list-style: none;
+}
+.nav-links li {
+  float: left;
+  margin: 0 10px;
+}
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+}
+.nav-btn {
+  background: #ff5722;
+  color: #fff;
+  border: 0;
+  padding: 10px 18px;
+  align-self: center;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #dfe9f3;
+  min-height: 300px;
+}
+.hero-text {
+  flex: 0 0 35%;
+}
+.hero-box {
+  background: #7aa7d9;
+  flex: 1;
+  min-height: 200px;
+  max-width: 830px;
+}
+
+/* ---------- FEATURES ---------- */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  align-items: stretch;
+  gap: 10px;
+}
+.feature-card {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+/* .feature-card:nth-child(2) {
+  grid-column: 1 / 4;
+}
+.feature-card:nth-child(4) {
+  grid-row: 3;
+} */
+
+/* ---------- MAIN + SIDEBAR ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: "sidebar main";
+  gap: 20px;
+}
+.layout main {
+  grid-area: sidebar;
+  background: #fff;
+  padding: 20px;
+}
+.layout aside {
+  grid-area: main;
+  background: #ffe0b2;
+  padding: 20px;
+}
+
+/* ---------- GALERİ ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  overflow: visible;
+}
+.gallery div {
+  background: #8bc34a;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  color: #fff;
+  padding: 8px;
+  aspect-ratio: 3 / 3;
+}
+
+/* ---------- PRICING ---------- */
+.pricing {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+.price-card {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+
+  display: block;
+}
+.price-card ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+.price-card button {
+  background: #222;
+  color: #fff;
+  border: 0;
+  padding: 10px 20px;
+}
+.price-card:nth-child(2) {
+  margin-top: -30px;
+}
+
+/* ---------- FORM ---------- */
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-width: 600px;
+}
+
+form input,
+form textarea,
+form button {
+  padding: 10px;
+  width: 100%;
+}
+
+form textarea {
+  height: 100px;
+  grid-column: 1 / -1;
+}
+form button {
+  background: #ff5722;
+  color: #fff;
+  border: 0;
+  justify-self: end;
+  width: auto;
+  grid-column: 1 / -1;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  background: #222;
+  color: #fff;
+  padding: 30px 20px;
+}
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.copyright {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "main" "sidebar";
+  }
+  .gallery {
+    flex-direction: row-reverse;
+  }
+  .pricing {
+    grid-template-columns: 1fr;
+  }
+  .price-card:nth-child(2) {
+    margin-top: 0px;
+  }
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .hero-text {
+    width: 100%;
+  }
+  .hero-box {
+    width: 100%;
+    min-height: 250px;
+  }
+  form {
+    grid-template-columns: 1fr;
+  }
+  .hero-text h1 {
+    margin-bottom: 12px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
+@media (max-width: 480px) {
+  .gallery div {
+    flex: 0 0 50%;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-grid > div:nth-child(even) {
+    text-align: right;
+  }
+  .navbar {
+    flex-direction: column;
+    height: 100%;
+    gap: 20px;
+  }
+}
